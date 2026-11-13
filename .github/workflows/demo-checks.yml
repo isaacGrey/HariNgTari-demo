@@ -1,0 +1,29 @@
+name: Demo verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Check required standalone assets
+        run: |
+          test -s index.html
+          test -s styles.css
+          test -s favicon.svg
+          test -s README.md
+          test -s vercel.json
+      - name: Check non-operational demo markers
+        run: |
+          grep -qi "never deployed" index.html
+          grep -qi "never deployed" README.md
+          grep -qi "no wagering" app.js
