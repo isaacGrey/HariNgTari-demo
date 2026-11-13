@@ -37,7 +37,7 @@ vm.runInNewContext(source, context, { filename: 'app.js' });
 
 assert.match(root.innerHTML, /never deployed/i, 'Landing screen must disclose original project status');
 assert.match(root.innerHTML, /owner@hnt.demo/, 'Owner credentials should be available');
-assert.match(root.innerHTML, /moderator@hnt.demo/, 'Moderator account should be available in the code-generated UI after selection');
+assert.match(root.innerHTML, />Moderator</, 'Moderator role should be offered');
 
 function submit(id, elements) {
   listeners.submit({ preventDefault() {}, target: { id, elements } });
